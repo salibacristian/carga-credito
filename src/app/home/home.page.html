@@ -1,14 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+<div style="height:100%; background-color: rgb(240, 240, 97)">
+  <div class="visor ion-text-center">
+      <h1>Credito: {{scannedResult}}</h1>
   </div>
-</ion-content>
+  <div class="camara" (click)="scanCode()">
+      <img class="icon" src="assets/icon/qr.png">
+  </div>
+  <div class="borrar">
+    <ion-button color='danger' (click)='Borrar()' class="boton">
+      <h1>Borrar Creditos</h1>
+    </ion-button>
+  </div>
+</div>
