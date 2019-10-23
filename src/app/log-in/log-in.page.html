@@ -6,16 +6,10 @@
           <h2 class='text'>Iniciar Sesión</h2>
         </div>
       </ion-card-title>
-      <ion-card-title>
-        <img class="icon" src="./../../assets/icon/icon.png">
-      </ion-card-title>
-
-
-
     </ion-card-header>
 
-    <ion-card-content color='success'>
-      <ion-item  shape="round">
+    <ion-card-content color='tertiary'>
+      <ion-item shape="round">
         <ion-label position="floating">
           <ion-text>
             <h4>
@@ -24,11 +18,11 @@
           </ion-text>
 
         </ion-label>
-        <ion-input color='success' clear-input type='text' [(ngModel)]='email'></ion-input>
+        <ion-input color='tertiary' clear-input type='text' [(ngModel)]='email'></ion-input>
       </ion-item>
 
       <ion-item shape="round">
-        <ion-label position="floating" >
+        <ion-label position="floating">
           <ion-text>
             <h4>
               Contraseña
@@ -36,21 +30,22 @@
           </ion-text>
 
         </ion-label>
-        <ion-input clearInput type='password' [(ngModel)]='password'></ion-input>
+        <ion-input color='tertiary' clearInput type='password' [(ngModel)]='password'></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>
-          <ion-button expand="full" (click)='OnSubmitLogIn()' shape="round" color='success'>
+          <ion-button expand="full" (click)='OnSubmitLogIn()' shape="round" color='tertiary'>
             <ion-icon slot="start" name="checkmark"></ion-icon>
             Aceptar
           </ion-button>
         </ion-label>
 
       </ion-item>
+
       <ion-item>
         <ion-label>
-          <ion-button expand="full"  color='success' (click)='Rellenar("admin",111111)'>
+          <ion-button expand="full" color='success' (click)='Rellenar("admin",111111)'>
             <ion-icon slot="start" name="person"></ion-icon>
             Administrador
           </ion-button>

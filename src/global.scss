@@ -1,26 +1,105 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
-
-/* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
 @import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
 
-/* Optional CSS utils that can be commented out */
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+
+.fondo{
+    height: 100%; 
+    background-color: black;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.base {
+    /* The image used */
+    background-image: url("./assets/splash/base.png");
+  
+    /* Full height */
+    height: 100%; 
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.izquierda {
+    /* Full height */
+    border-style: solid;
+    border-color: black;
+}
+
+
+.center {
+    /* The image used */
+    background-image: url("./assets/splash/centro.png");
+  
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70%;
+    animation-name: spin;
+    animation-duration:2500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}
+
+@keyframes spin {
+    from {
+        transform:scale(0,0);
+    }
+    to {
+        transform:scale(1,1);
+    }
+}
+
+
+@keyframes nospin {
+    from {
+        transform:rotate(360deg);
+    }
+    to {
+        transform:rotate(0deg);
+    }
+}
+
+
+
+// .base {
+//     z-index: 999;
+//     width: 100%;
+//     height: 100%;
+//     background-color: red;
+//     position: relative;
+//     -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+//     -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+//     animation-name: example;
+//     animation-duration: 3s;
+//     animation-iteration-count: infinite;
+// }
+// @-webkit-keyframes example {
+//     0%   {background-color:red;}
+//     25%  {background-color:yellow;}
+//     50%  {background-color:blue;}
+//     75%  {background-color:green;}
+//     100% {background-color:red; }
+//   }
+
+// @keyframes example {
+//     0%   {background-color:red; }
+//     25%  {background-color:yellow; }
+//     50%  {background-color:blue; }
+//     75%  {background-color:green; }
+//     100% {background-color:red; }
+//   }
