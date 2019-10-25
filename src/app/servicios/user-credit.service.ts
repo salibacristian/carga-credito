@@ -54,10 +54,10 @@ export class UserCreditService {
 
   /** Conecta con Firebase para editar los votos de la foto y los usuarios que votaron */
   public async SumarCredito(codigo: string) {
-
     var codigoRecibido = this.codes.find(function (x) {
-      return x.code == codigo;
+      return x.code == codigo || (x.code.includes('e4bcffaf9ce5b409f') && codigo.includes('e4bcffaf9ce5b409f'))
     });
+
 
     if (!codigoRecibido) {
       //alert! 
@@ -115,6 +115,7 @@ export class UserCreditService {
       }
       else {
         //alert YA ESTA EN USO!
+        alert('ya existe')
       }
 
     });
