@@ -1,18 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ZBar, ZBarOptions } from '@ionic-native/zbar/ngx';
+import {UserCreditService} from '../servicios/user-credit.service'
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  ngOnInit(): void {
+    this.userEmail = this.service.getCurrentUser();
+    this.userEmail = this.userEmail.split('@').shift();
+    this.service.SumarCredito("2786f4877b9091dcad7f35751bfcf5d5ea712b2f");
+  }
+  
   zbarOptions:any;
   scannedResult:any = 0;
+  userEmail: string;
  
   constructor(
     private zbar: ZBar,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private service: UserCreditService
   ) {
  
     this.zbarOptions = {
@@ -25,36 +34,7 @@ export class HomePage {
   scanCode(){
     this.zbar.scan(this.zbarOptions)
    .then(result => {
-      let diez = this.scannedResult == 10;
-      let cincuenta = this.scannedResult == 50;
-      let sesenta = this.scannedResult == 60;
-      let cien = this.scannedResult == 100;
-      let cientocincuenta = this.scannedResult == 150;
-      let cientosesenta = this.scannedResult == 160;
-      if(result=='2786f4877b9091dcad7f35751bfcf5d5ea712b2f'){
-        if(!cien && !cientocincuenta && !cientosesenta){
-          this.scannedResult+=100;
-          return
-        }
-        this.presentToast2()
-      }
-      let ex:string = result;
-      if(ex.includes('e4bcffaf9ce5b409f')){
-        if(!cincuenta && !sesenta && !cientocincuenta && !cientosesenta){
-          this.scannedResult+=50;
-          return
-        }
-        this.presentToast2()
-      }
-
-      if(result=='8c95def646b6127282ed50454b73240300dccabc'){
-        if(!diez && !sesenta && ! cientosesenta){
-          this.scannedResult+=10;
-          return
-        }
-        this.presentToast2()
-      }
-      this.presentToast()
+     this.service.SumarCredito(result);
    })
    .catch(error => {
       this.presentToast()
