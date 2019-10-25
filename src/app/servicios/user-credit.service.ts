@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/internal/operators/map';
 
 export interface Credito {
   docId: string;
@@ -28,6 +29,29 @@ export class UserCreditService {
     return this.MiAuth.auth.currentUser.email;
   }
 
+  public async getUserCredit() {
+    await this.firestore.collection('creditos').ref
+      .where('usuario', '==', this.MiAuth.auth.currentUser.email)
+      .get().then(async (documento) => {
+        if (documento.docs.length) {
+          var creditosDb = documento.docs.map(function (x) {
+            var rv = x.data() as Credito;
+            return rv.creditos;
+          });
+          return creditosDb.shift();
+        }
+        else return '0';
+      });
+  }
+
+  public getCredits() {
+    return this.firestore.collection('creditos').snapshotChanges().pipe(map((creditos) => {
+      return creditos.map((a) => {
+        return a.payload.doc.data() as Credito;
+      });
+    }));
+  }
+
   /** Conecta con Firebase para editar los votos de la foto y los usuarios que votaron */
   public async SumarCredito(codigo: string) {
 
@@ -51,7 +75,7 @@ export class UserCreditService {
 
       //sumo creditos y hago un push del codigo param si es que NADIE lo tiene
       var existe = creditosDb.some(function (x) {
-        return x.codigos.some(function(code){
+        return x.codigos.some(function (code) {
           return code == codigo;
         });
       });
@@ -61,7 +85,7 @@ export class UserCreditService {
           return x.usuario == user;
         });
 
-       
+
         if (creditosDelUsuario) {
           creditosDelUsuario.creditos += codigoRecibido.value;
           creditosDelUsuario.codigos.push(codigo);
@@ -95,4 +119,28 @@ export class UserCreditService {
 
     });
   }
+
+  public async BorrarCredito() {
+    const user = this.MiAuth.auth.currentUser.email;
+    await this.firestore.collection('creditos').ref
+      .where('usuario', '==', user)
+      .get().then(async (documento) => {
+        if (documento.docs.length) {
+
+          this.firestore.collection('creditos').doc(documento.docs.shift().id).set({
+            creditos: 0,
+            codigos: new Array<string>(),
+            usuario: user
+          }).then(async () => {
+            //OK!!!!
+          }).catch(err => {
+            console.log('Error', err);
+          });
+        }
+        else {
+          //no tiene creditos!
+        }
+      });
+  }
+
 }

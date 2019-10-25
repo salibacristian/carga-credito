@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { ZBar, ZBarOptions } from '@ionic-native/zbar/ngx';
-import {UserCreditService} from '../servicios/user-credit.service'
+import { UserCreditService } from '../servicios/user-credit.service'
+import { async } from '@angular/core/testing';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -10,44 +11,51 @@ import {UserCreditService} from '../servicios/user-credit.service'
 export class HomePage implements OnInit {
   ngOnInit(): void {
     this.userEmail = this.service.getCurrentUser();
-    this.userEmail = this.userEmail.split('@').shift();
-    this.service.SumarCredito("2786f4877b9091dcad7f35751bfcf5d5ea712b2f");
+    this.userName = this.userEmail.split('@').shift();
+    this.getUserCredit(this.userEmail);
   }
-  
-  zbarOptions:any;
-  scannedResult:any = 0;
+
+  zbarOptions: any;
   userEmail: string;
- 
+  userName: string;
+  userCredits: string;
+
   constructor(
     private zbar: ZBar,
     public toastController: ToastController,
     private service: UserCreditService
   ) {
- 
+
     this.zbarOptions = {
       flash: 'off',
       drawSight: false
     }
- 
+
   }
- 
-  scanCode(){
+
+  getUserCredit(userEmail){
+    this.service.getCredits().subscribe(async (credits) => {
+      this.userCredits = credits.find(function (x) { return x.usuario == userEmail; }).creditos;
+    });
+  }
+
+  scanCode() {
     this.zbar.scan(this.zbarOptions)
-   .then(result => {
-     this.service.SumarCredito(result);
-   })
-   .catch(error => {
-      this.presentToast()
-      alert(error); // Error message
-   });
+      .then(result => {
+        this.service.SumarCredito(result);
+      })
+      .catch(error => {
+        this.presentToast()
+        alert(error); // Error message
+      });
   }
 
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Error codigo QR invalido',
       duration: 2000,
-      color:"dark",
-      showCloseButton:true
+      color: "dark",
+      showCloseButton: true
     });
     toast.present();
   }
@@ -56,13 +64,13 @@ export class HomePage implements OnInit {
     const toast = await this.toastController.create({
       message: 'Error codigo QR ya escaneado',
       duration: 2000,
-      color:"dark",
-      showCloseButton:true
+      color: "dark",
+      showCloseButton: true
     });
     toast.present();
   }
 
-  Borrar(){
-    this.scannedResult = 0;
+  Borrar() {
+    this.service.BorrarCredito();
   }
 }
