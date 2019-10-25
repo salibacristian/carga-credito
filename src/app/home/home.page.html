@@ -1,4 +1,4 @@
-<div style="height:100%; background-color: rgb(240, 240, 97)">
+<!-- <div style="height:100%; background-color: rgb(240, 240, 97)">
   <div class="visor ion-text-center">
       <h1>Credito: {{scannedResult}}</h1>
   </div>
@@ -10,4 +10,26 @@
       <h1>Borrar Creditos</h1>
     </ion-button>
   </div>
+</div> -->
+
+<ion-header>
+  <ion-toolbar color="medium">
+    <ion-title style="color:white">Bienvenido {{user}}</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar color="primary">
+    <ion-title>Tu crédito es: {{scannedResult}}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="danger"(click)='Borrar()'>Borrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="camara" (click)="scanCode()">
+    <img class="icon" src="../../assets/icon/icon.png">
 </div>
+
+</ion-content>
+
