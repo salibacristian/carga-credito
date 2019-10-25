@@ -9,7 +9,7 @@ import { async } from '@angular/core/testing';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  ngOnInit(): void {
+  ngOnInit() {
     this.userEmail = this.service.getCurrentUser();
     this.userName = this.userEmail.split('@').shift();
     this.getUserCredit(this.userEmail);
@@ -35,7 +35,8 @@ export class HomePage implements OnInit {
 
   getUserCredit(userEmail){
     this.service.getCredits().subscribe(async (credits) => {
-      this.userCredits = credits.find(function (x) { return x.usuario == userEmail; }).creditos;
+     var userCredit = credits.find(function (x) { return x.usuario == userEmail; });
+     this.userCredits = userCredit? userCredit.creditos : '0';
     });
   }
 
